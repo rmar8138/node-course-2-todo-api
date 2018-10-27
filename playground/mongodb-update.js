@@ -28,27 +28,47 @@ MongoClient.connect(
     //     console.log(result);
     //   });
 
-    db.collection("Users")
-      .findOneAndUpdate(
-        {
-          _id: new ObjectID("5bd2472a19001c4774175047")
-        },
-        {
-          $set: {
-            name: "Ragan"
-          },
-          $inc: {
-            age: 1
-          }
-        },
-        {
-          returnOriginal: false
-        }
-      )
-      .then(result => {
-        console.log(JSON.stringify(result, undefined, 2));
-      });
+    // db.collection("Users")
+    //   .findOneAndUpdate(
+    //     {
+    //       _id: new ObjectID("5bd2472a19001c4774175047")
+    //     },
+    //     {
+    //       $set: {
+    //         name: "Ragan"
+    //       },
+    //       $inc: {
+    //         age: 1
+    //       }
+    //     },
+    //     {
+    //       returnOriginal: false
+    //     }
+    //   )
+    //   .then(result => {
+    //     console.log(JSON.stringify(result, undefined, 2));
+    //   });
 
+    // db.collection("Users")
+    //   .findOneAndUpdate(
+    //     {
+    //       _id: new ObjectID("5bd25c89c0c2bd48d47c72e0")
+    //     },
+    //     {
+    //       $set: {
+    //         location: "Japan"
+    //       },
+    //       $inc: {
+    //         age: 1
+    //       }
+    //     },
+    //     {
+    //       returnOriginal: false
+    //     }
+    //   )
+    //   .then(res => {
+    //     console.log(res);
+    //   });
     // db.close();
   }
 );
