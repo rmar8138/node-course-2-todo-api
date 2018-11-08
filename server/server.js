@@ -111,20 +111,33 @@ app.patch("/todos/:id", (req, res) => {
 app.post("/users", (req, res) => {
   var body = _.pick(req.body, ["email", "password"]);
   var user = new User(body);
+  // create new user instance containing
+  // email and password property from request body
 
   user
-    .save()
+    .save() // save user to database
     .then(() => {
       return user.generateAuthToken();
+      // call instance method generateAuthToken, which should
+      // return a hashed string token containing the user id and secret
     })
     .then(token => {
       res.header("x-auth", token).send(user);
+      // the token is then sent back to the user via the header
+      // under the x-auth key, the 'x' being added for any custom
+      // header properties. Then, send the user object iself back
+      // to the client. The toJSON method has been modified, so only
+      // the id and the email will be sent back, not the token and password
     })
     .catch(e => res.status(400).send());
 });
 
 app.get("/users/me", authenticate, (req, res) => {
+  // use authenticate middleware to only allow access to this route if
+  // a valid auth token is provided. see authenticate.js filed in middleware
+  // folder.
   res.send(req.user);
+  // send user back (found in request) if authenticated
 });
 
 app.listen(port, () => {
