@@ -121,6 +121,31 @@ UserSchema.statics.findByToken = function(token) {
   // and access it with dot notation.
 };
 
+UserSchema.statics.findByCredentials = function(email, password) {
+  var User = this;
+
+  return User.findOne({ email }).then(user => {
+    if (!user) {
+      return Promise.reject();
+    }
+
+    return new Promise((resolve, reject) => {
+      // if (bcrypt.compare(password, user.password)) {
+      //   resolve(user);
+      // } else {
+      //   reject();
+      // }
+      bcrypt.compare(password, user.password, (err, res) => {
+        if (res) {
+          resolve(user);
+        } else {
+          reject();
+        }
+      });
+    });
+  });
+};
+
 UserSchema.pre("save", function(next) {
   var user = this;
 
