@@ -60,7 +60,7 @@ UserSchema.methods.generateAuthToken = function() {
   // set current user instance to variable called 'user'
   var access = "auth";
   var token = jwt
-    .sign({ _id: user._id.toHexString(), access }, "abc123")
+    .sign({ _id: user._id.toHexString(), access }, process.env.JWT_SECRET)
     .toString();
   // set token to jwt hash of the current instance user id to hexstring,
   // and the access variable, in this case auth, along with the salt secret
@@ -105,7 +105,7 @@ UserSchema.statics.findByToken = function(token) {
   // it.
 
   try {
-    decoded = jwt.verify(token, "abc123");
+    decoded = jwt.verify(token, process.env.JWT_SECRET);
     // Attempt to set the variable decoded to the object of the token
     // passed in to the current static method, as well as the secret
   } catch (e) {
